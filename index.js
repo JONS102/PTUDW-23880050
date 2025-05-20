@@ -15,8 +15,8 @@ const cartController = require('./controllers/cartController'); // Thêm dòng n
 const redisStore = require('connect-redis').default; // ĐÚNG cho v7.x
 const { createClient } = require('redis');
 const redisClient = createClient({
-    url: 'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
-        // url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
+    // url: 'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
+    url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
 });
 redisClient.connect().catch(console.error);
 
