@@ -1,4 +1,6 @@
 'use strict';
+require('dotenv').config();
+
 
 const express = require('express'); // định nghĩa web server đơn giản
 const app = express(); // tạo một ứng dụng express
@@ -16,7 +18,7 @@ const redisStore = require('connect-redis').default; // ĐÚNG cho v7.x
 const { createClient } = require('redis');
 const redisClient = createClient({
     // url: 'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
-    url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
+    url: process.env.REDIS_URL
 });
 redisClient.connect().catch(console.error);
 
@@ -42,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
-    secret: 'S3cret',
+    secret: process.env.SESSION_SECRET, // khóa bí mật để mã hóa session
     store: new redisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: false,
