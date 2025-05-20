@@ -9,12 +9,14 @@ app.use(express.static('public'));
 const { createStarList } = require('./controllers/handlebarsHelper');
 const { createPagination } = require('express-handlebars-paginate'); // import các helper từ file handlebarsHelper.js
 const session = require('express-session');
+
+
 const cartController = require('./controllers/cartController'); // Thêm dòng này
-const redisStore = require('connect-redis').defaut;
+const redisStore = require('connect-redis').default; // ĐÚNG cho v7.x
 const { createClient } = require('redis');
 const redisClient = createClient({
-    // url:'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
-    url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
+    url: 'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
+        // url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
 });
 redisClient.connect().catch(console.error);
 
