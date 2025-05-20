@@ -10,6 +10,13 @@ const { createStarList } = require('./controllers/handlebarsHelper');
 const { createPagination } = require('express-handlebars-paginate'); // import các helper từ file handlebarsHelper.js
 const session = require('express-session');
 const cartController = require('./controllers/cartController'); // Thêm dòng này
+const redisStore = require('connect-redis').defaut;
+const { createClient } = require('redis');
+const redisClient = createClient({
+    // url:'rediss://red-d0m7aa95pdvs73900lcg:3GiFMYy65cFjgVjZIdtoswbr81YxZ5Ir@singapore-keyvalue.render.com:6379'
+    url: 'redis://red-d0m7aa95pdvs73900lcg:6379'
+});
+redisClient.connect().catch(console.error);
 
 // cấu hình sử dụng express-handlebars
 app.engine('hbs', expressHandlebars.engine({
@@ -34,6 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
     secret: 'S3cret',
+    store: new redisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: false,
     cookie: {
